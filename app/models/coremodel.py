@@ -17,7 +17,7 @@ timestamp_updated_at = Annotated[
 ]
 
 
-class BaseModel(Base):
+class CoreModel(Base):
     __abstract__ = True
 
     id: Mapped[Annotated[int, mapped_column(primary_key=True, index=True)]]
