@@ -47,9 +47,9 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # Import your models' Base to enable autogenerate
 try:
-    from app.models.basemodel import BaseModel
+    from app.models.coremodel import CoreModel
 
-    target_metadata = BaseModel.metadata
+    target_metadata = CoreModel.metadata
 except ImportError:
     target_metadata = None
 
