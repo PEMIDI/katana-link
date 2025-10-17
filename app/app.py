@@ -9,7 +9,7 @@ from .core.config import get_settings
 from .core.logging import setup_logging
 from .api.routes import api_router
 from .db.session import engine
-from .models.base import Base
+from .models.basemodel import BaseModel
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ async def lifespan(app: FastAPI):
     if settings.ENV.lower() != "production":
         try:
             async with engine.begin() as conn:
-                await conn.run_sync(Base.metadata.create_all)
+                await conn.run_sync(BaseModel.metadata.create_all)
             logger.info("Database tables ensured (create_all) for environment=%s", settings.ENV)
         except Exception as exc:
             logger.exception("Failed to auto-create tables on startup: %s", exc)
