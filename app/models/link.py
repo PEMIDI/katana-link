@@ -3,12 +3,12 @@ from typing import Annotated
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .basemodel import BaseModel
+from .coremodel import CoreModel
 
 str_265 = Annotated[str, mapped_column(String(265))]
 
 
-class Link(BaseModel):
+class Link(CoreModel):
     __tablename__ = "links"
 
     long_url: Mapped[str_265] = mapped_column(nullable=False, index=True)
