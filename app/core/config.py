@@ -21,7 +21,10 @@ class Settings:
         self.SQL_ECHO: bool = False
         self.SQL_POOL_SIZE: int = 5
         self.SQL_MAX_OVERFLOW: int = 10
-        
+
+        self.REDIS_HOST: str = None
+        self.REDIS_PORT: int = None
+
         # Load from .env file
         self._load_from_env()
     
