@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .core.config import get_settings
 from .core.logging import setup_logging
 from .api.routes import api_router
-from .db.session import engine
+from core.db.session import engine
 from .models.coremodel import CoreModel
 
 logger = logging.getLogger(__name__)
