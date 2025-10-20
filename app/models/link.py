@@ -1,4 +1,5 @@
 from typing import Annotated
+import base62
 
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
@@ -12,7 +13,7 @@ class Link(CoreModel):
     __tablename__ = "links"
 
     long_url: Mapped[str_265] = mapped_column(nullable=False, index=True)
-    short_url: Mapped[str_265] = mapped_column(nullable=False, index=True, unique=True)
+    short_url: Mapped[str_265] = mapped_column(nullable=True, index=True, unique=True)
     visits: Mapped[int] = mapped_column(nullable=False, default=0)
 
     def __repr__(self):
