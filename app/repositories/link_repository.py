@@ -1,7 +1,7 @@
 from typing import Any
 
 import base62
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from models import Link
@@ -41,4 +41,11 @@ class LinkRepository:
         if link_exist:
             return link_exist.short_url
 
-        return await self.create(LinkCreate(long_link=str(long_url)))
+        return await self.create(LinkCreate(long_link=data.long_link))
+
+    async def add_visits_to_link(self, link_id: int, visits: int):
+        stmt = (
+            update(Link).where(Link.id == link_id).values(visits=Link.visits + visits)
+        )
+        await self.db.execute(stmt)
+        await self.db.commit()
