@@ -33,15 +33,16 @@ class LinkRepository:
         await self.db.refresh(link)
         return link
 
-    async def get_or_create_link(self, data: LinkCreate) -> Link | Any:
-        stmt = select(Link).where(Link.long_url == LinkCreate.long_link)
+    async def get_or_create_link(self, data: LinkCreate) -> tuple[Link, bool]:
+        stmt = select(Link).where(Link.long_url == str(data.long_link))
         result = await self.db.execute(stmt)
         link_exist = result.scalar_one_or_none()
 
         if link_exist:
-            return link_exist.short_url
+            return link_exist, False
 
-        return await self.create(LinkCreate(long_link=data.long_link))
+        created_link = await self.create(LinkCreate(long_link=data.long_link))
+        return created_link, True
 
     async def add_visits_to_link(self, link_id: int, visits: int):
         stmt = (
