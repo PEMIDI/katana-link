@@ -19,13 +19,24 @@ def _ensure_asyncpg_driver(url: str) -> str:
     return url
 
 
-# Create async engine for PostgreSQL
+# Create async engine (PostgreSQL by default; supports SQLite for tests)
+_database_url = _ensure_asyncpg_driver(settings.DATABASE_URL)
+_is_sqlite = _database_url.startswith("sqlite+")
+
+_engine_kwargs = {
+    "echo": settings.SQL_ECHO,
+    "pool_pre_ping": True,
+}
+# SQLite (especially in-memory) doesn't support pool_size/max_overflow in the same way
+if not _is_sqlite:
+    _engine_kwargs.update({
+        "pool_size": settings.SQL_POOL_SIZE,
+        "max_overflow": settings.SQL_MAX_OVERFLOW,
+    })
+
 engine = create_async_engine(
-    _ensure_asyncpg_driver(settings.DATABASE_URL),
-    echo=settings.SQL_ECHO,
-    pool_pre_ping=True,
-    pool_size=settings.SQL_POOL_SIZE,
-    max_overflow=settings.SQL_MAX_OVERFLOW,
+    _database_url,
+    **_engine_kwargs,
 )
 
 # Async session factory
