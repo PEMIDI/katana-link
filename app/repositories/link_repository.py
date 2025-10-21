@@ -4,8 +4,8 @@ import base62
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models import Link
-from schemas.link_dto import LinkCreate
+from app.models import Link
+from app.schemas.link_dto import LinkCreate
 
 
 class LinkRepository:

@@ -1,9 +1,9 @@
 from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.deps import get_db
-from schemas.link_dto import LinkCreate
-from services.link_service import LinkService
+from app.api.deps import get_db
+from app.schemas.link_dto import LinkCreate
+from app.services.link_service import LinkService
 
 router = APIRouter()
 
