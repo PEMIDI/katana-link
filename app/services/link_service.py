@@ -14,6 +14,16 @@ class LinkService:
     async def create_link(self, data: LinkCreate):
         return await self.repo.get_or_create_link(data)
 
+    def build_public_short_link(self, short_code: str) -> str:
+        from app.core.config import get_settings
+
+        settings = get_settings()
+        domain = (getattr(settings, "SHORT_DOMAIN", "") or "").strip()
+        if domain and not domain.startswith(("http://", "https://")):
+            domain = f"http://{domain}"
+        domain = domain.rstrip('/') if domain else ""
+        return f"{domain}/{short_code}" if domain else short_code
+
     async def get_long_link(self, short_url: str) -> str | None:
         try:
             short_url_id = base62.decode(short_url)

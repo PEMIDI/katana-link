@@ -26,4 +26,14 @@ async def post_short_url(
 ):
     created_link, is_created = await link_service.create_link(data=link)
     response.status_code = status.HTTP_201_CREATED if is_created else status.HTTP_200_OK
-    return LinkRead(short_link=created_link.short_url, long_link=created_link.long_url)
+
+    settings = get_settings()
+    domain = (settings.SHORT_DOMAIN or "").strip()
+    # Normalize domain: prepend http:// if missing scheme, strip trailing slash
+    if domain and not domain.startswith(("http://", "https://")):
+        domain = f"http://{domain}"
+    domain = domain.rstrip('/') if domain else ""
+
+    full_short_link = f"{domain}/{created_link.short_url}" if domain else created_link.short_url
+
+    return LinkRead(short_link=full_short_link, long_link=created_link.long_url)

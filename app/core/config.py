@@ -25,6 +25,9 @@ class Settings:
         self.REDIS_HOST: str = None
         self.REDIS_PORT: int = None
 
+        # Short domain used to build public short links (e.g., http://localhost:8000)
+        self.SHORT_DOMAIN: str = "http://localhost:8000"
+
         # Load from .env file
         self._load_from_env()
     
