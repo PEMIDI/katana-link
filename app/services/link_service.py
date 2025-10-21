@@ -1,9 +1,9 @@
 import base62
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from repositories.link_repository import LinkRepository
-from schemas.link_dto import LinkCreate
-from services.cache_service import CacheService
+from app.repositories.link_repository import LinkRepository
+from app.schemas.link_dto import LinkCreate
+from app.services.cache_service import CacheService
 
 
 class LinkService:

@@ -5,11 +5,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .core.config import get_settings
-from .core.logging import setup_logging
-from .api.routes import api_router
-from core.db.session import engine
-from .models.coremodel import CoreModel
+from app.core.config import get_settings
+from app.core.logging import setup_logging
+from app.api.routes import api_router
+from app.core.db.session import engine
+from app.models.coremodel import CoreModel
 
 logger = logging.getLogger(__name__)
 

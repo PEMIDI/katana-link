@@ -1,10 +1,9 @@
 from typing import Annotated
-import base62
 
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .coremodel import CoreModel
+from app.models.coremodel import CoreModel
 
 str_265 = Annotated[str, mapped_column(String(265))]
 

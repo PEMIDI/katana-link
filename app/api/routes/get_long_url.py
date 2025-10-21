@@ -2,8 +2,8 @@ from fastapi import APIRouter, status, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.responses import RedirectResponse
 
-from api.deps import get_db
-from services.link_service import LinkService
+from app.api.deps import get_db
+from app.services.link_service import LinkService
 
 router = APIRouter()
 

@@ -1,4 +1,4 @@
-from core.redis.session import redis_client
+from app.core.redis.session import redis_client
 
 
 class CacheService:
