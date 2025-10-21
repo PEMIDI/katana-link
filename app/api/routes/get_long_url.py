@@ -5,7 +5,9 @@ from starlette.responses import RedirectResponse
 from app.api.deps import get_db
 from app.services.link_service import LinkService
 
+
 router = APIRouter()
+
 
 get_short_url_summary = "Redirect to the original link"
 
